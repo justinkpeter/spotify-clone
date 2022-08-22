@@ -1,20 +1,37 @@
 import React from 'react';
 import './Body.css'
 import Header from './Header'
+import {useDataLayerValue} from "./DataLayer";
+import {Favorite, MoreHoriz, PlayCircleFilled} from "@mui/icons-material";
+import SongRow from "./SongRow";
 
 function Body({spotify}) {
+
+    const [{ discover_weekly }, dispatch ] = useDataLayerValue();
+
     return (
         <div className="body">
             <Header spotify={spotify} />
 
             <div className="body__info">
-                <img src="https://newjams-images.scdn.co/image/ab676477000033ad/dt/v3/discover-weekly/8PtZiVP0nL008X12wn646TW6A_h6WDiUdWvgHU6uhYcQrEXDWLFqWPqrlW_PyW1TL_2WiNDEjeb9A85-9xDZsDUF73W6tyd7Pl1vLUzqy04=/MjM6ODU6MDBUNzItNjAtMg==" alt=""/>
+                <img src={discover_weekly?.images[0].url}alt=""/>
                 <div className="body__infoText">
                     <strong> PLAYLIST </strong>
                     <h2> Discover Weekly </h2>
-                    <p> description .... </p>
+                    <p> {discover_weekly?.description} </p>
 
                 </div>
+            </div>
+
+            <div className="body__songs">
+                <div className="body__icons">
+                    <PlayCircleFilled className="body__shuffle"/>
+                    <Favorite fontSize="large"/>
+                    <MoreHoriz />
+                </div>
+                {discover_weekly?.tracks.items.map((item) => (
+                    <SongRow track={item.track} />
+                ))}
             </div>
         </div>
     );
