@@ -28,9 +28,7 @@ function Sidebar(props) {
             {playlists?.items?.map(playlist => (
                 <SidebarOption option={playlist.name}/>
             ))}
-            <SidebarOption option={"Hip-Hop"} />
-            <SidebarOption option={"RnB"} />
-            <SidebarOption option={"Bossa Nova"}/>
+
 
 
         </div>
